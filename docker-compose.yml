@@ -1,0 +1,15 @@
+services:
+  rotor-balance:
+    build: .
+    container_name: rotor-balance
+    ports:
+      - "3000:3000"        # 宿主机端口:容器端口，改左侧即可换对外端口
+    environment:
+      PORT: 3000           # 容器内监听端口
+      DB_PATH: /app/data/app.db
+    volumes:
+      - rotor-data:/app/data   # SQLite 数据持久化
+    restart: unless-stopped
+
+volumes:
+  rotor-data:

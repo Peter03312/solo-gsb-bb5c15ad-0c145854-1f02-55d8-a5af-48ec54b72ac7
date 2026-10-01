@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>实验室离心转子配平</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>实验室离心转子配平</h1>
+    <span id="version" class="muted"></span>
+  </header>
+
+  <div id="msg" hidden></div>
+
+  <main>
+    <section class="card">
+      <h2>① 转子参数</h2>
+      <form id="rotor-form" class="form-row">
+        <label>孔位数（偶数 4–12）
+          <select id="rotor-holes">
+            <option>4</option><option>6</option><option>8</option>
+            <option>10</option><option>12</option>
+          </select>
+        </label>
+        <label>单孔最大质量 (g)
+          <input id="rotor-maxmass" type="number" step="any" min="0" required>
+        </label>
+        <label>允许对径差 (g)
+          <input id="rotor-tolerance" type="number" step="any" min="0" required>
+        </label>
+        <button type="submit">保存转子参数</button>
+      </form>
+      <p class="muted">修改转子参数会使既有草稿失效；若与已录入的离心管 / 配重冲突（质量超上限、孔位越界），保存将被拒绝。</p>
+    </section>
+
+    <section class="card">
+      <h2>② 离心管（本次全部）</h2>
+      <table id="tubes-table">
+        <thead><tr><th>编号</th><th>称重质量 (g)</th><th>可用孔位</th><th>操作</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="form-row add-row">
+        <input id="tube-id" placeholder="编号，如 T1">
+        <input id="tube-mass" type="number" step="any" min="0" placeholder="质量 g">
+        <input id="tube-holes" placeholder="可用孔位，如 1,2,3,4">
+        <button id="tube-add" type="button">添加离心管</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>③ 配重块（可选）</h2>
+      <table id="cw-table">
+        <thead><tr><th>编号</th><th>单枚质量 (g)</th><th>数量</th><th>操作</th></tr></thead>
+        <tbody></tbody>
+      </table>
+      <div class="form-row add-row">
+        <input id="cw-id" placeholder="编号，如 W1">
+        <input id="cw-mass" type="number" step="any" min="0" placeholder="单枚质量 g">
+        <input id="cw-qty" type="number" step="1" min="0" placeholder="数量">
+        <button id="cw-add" type="button">添加配重</button>
+      </div>
+      <p class="muted">每枚配重最多使用一次；同一编号下数量即该规格配重的枚数。</p>
+    </section>
+
+    <section class="card">
+      <h2>④ 装载求解</h2>
+      <button id="solve-btn" type="button">求解装载图</button>
+      <div id="draft"></div>
+    </section>
+
+    <section class="card">
+      <h2>⑤ 已发布装载图</h2>
+      <div id="published"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
